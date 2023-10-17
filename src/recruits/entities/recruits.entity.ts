@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, OneToMany } from "typeorm";
 import { CompanyEntity } from "src/companies/entities/companies.entity";
+import { ApplyEntity } from "src/apply/entities/apply.entity";
 
 @Entity({ name: 'recruits'})
 export class RecruitEntity{
@@ -24,5 +25,11 @@ export class RecruitEntity{
         { nullable: false }
     )
     @JoinColumn({ name: 'company_id'})
-    company: CompanyEntity
+    company: CompanyEntity;
+
+    @OneToMany(
+        () => ApplyEntity,
+        (apply) => apply.recruit
+    )
+    apply: ApplyEntity[];
 }
